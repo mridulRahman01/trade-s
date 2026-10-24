@@ -1,0 +1,120 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@theme inline {
+  --color-background: #ffffff;
+  --color-foreground: #3d3d3d;
+  --font-sans: var(--font-public-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: var(--font-barlow-condensed), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  
+  --color-brand-yellow: #ffc20e;
+  --color-brand-yellow-hover: #e6ac00;
+  --color-brand-surface-alt: #f7f7f5;
+  --color-brand-heading: #111111;
+  --color-brand-body: #3d3d3d;
+  --color-brand-muted: #6b6b6b;
+  --color-brand-border: #e5e5e0;
+
+  --color-border: #e5e5e0;
+  --color-input: #e5e5e0;
+  --color-ring: #ffc20e;
+  --color-primary: #ffc20e;
+  --color-primary-foreground: #111111;
+  --color-secondary: #f7f7f5;
+  --color-secondary-foreground: #111111;
+  --color-muted: #f7f7f5;
+  --color-muted-foreground: #6b6b6b;
+  --color-accent: #f7f7f5;
+  --color-accent-foreground: #111111;
+  --color-card: #ffffff;
+  --color-card-foreground: #111111;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #3d3d3d;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #ffc20e;
+  --primary-foreground: #111111;
+  --secondary: #f7f7f5;
+  --secondary-foreground: #111111;
+  --muted: #f7f7f5;
+  --muted-foreground: #6b6b6b;
+  --accent: #f7f7f5;
+  --accent-foreground: #111111;
+  --destructive: #dc2626;
+  --border: #e5e5e0;
+  --input: #e5e5e0;
+  --ring: #ffc20e;
+  --radius: 6px;
+}
+
+@layer base {
+  * {
+    border-color: #e5e5e0;
+  }
+  html {
+    font-family: var(--font-public-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #3d3d3d;
+    background-color: #ffffff;
+    overflow-x: hidden;
+    touch-action: manipulation;
+  }
+  body {
+    background-color: #ffffff;
+    color: #3d3d3d;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-barlow-condensed), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #111111;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.1;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 1.25rem;
+    line-height: 1.25;
+    font-weight: 600;
+  }
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 65ch;
+  }
+}
+
+/* Custom Scrollbar for horizontal filter chips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Hide mobile sticky bottom action bars when mobile menu is open */
+body[data-mobile-menu-open="true"] [data-mobile-action-bar],
+body[data-mobile-menu-open="true"] aside[aria-label="Quick contact actions"],
+body[data-mobile-menu-open="true"] aside[aria-label="Mobile quick quote"] {
+  display: none !important;
+}

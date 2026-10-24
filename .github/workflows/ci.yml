@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run Typecheck
+        run: npm run typecheck
+
+      - name: Validate catalog and metadata
+        run: npm run validate-data
+
+      - name: Build production bundle
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: "https://mirstradecenter.com"
+          RESEND_API_KEY: "re_mock_test_key"
+          ENQUIRY_TO_EMAIL: "dispatch@mirstradecenter.com"
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright Tests
+        run: npm run test:e2e
+        env:
+          NEXT_PUBLIC_SITE_URL: "http://localhost:3000"
