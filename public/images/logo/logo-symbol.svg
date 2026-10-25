@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
+  <!-- MIR SULAIMAN TRADE CENTER - Symbol Only (128x128) -->
+  <!-- One connected excavator boom M with curled bucket, 30% thicker strokes, open shallow V -->
+  <!-- Main Boom & Stick Frame (#111111) -->
+  <path d="M16 112 V24 H40 L64 56 L88 24 H112 V76 H88 V48 L64 80 L40 48 V112 H16 Z" fill="#111111"/>
+  <!-- Curled Excavator Bucket (#FFC20E) with zero gap -->
+  <path d="M88 76 H112 V98 L102 112 H66 L58 92 H78 L88 76 Z" fill="#FFC20E"/>
+</svg>

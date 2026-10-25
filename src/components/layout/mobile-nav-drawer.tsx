@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { navigationConfig, NavChildGroup } from "@/config/navigation";
@@ -257,11 +258,22 @@ export function MobileNavDrawer() {
           paddingBottom: "env(safe-area-inset-bottom)",
         }}
       >
-        {/* Panel Header: wordmark on one line + close button */}
+        {/* Panel Header: logo on one line + close button */}
         <div className="h-16 px-6 flex items-center justify-between border-b border-[#E5E5E0] shrink-0 bg-white">
-          <span className="font-heading font-bold text-lg tracking-tight uppercase text-[#111111] whitespace-nowrap truncate pr-2">
-            {siteConfig.name}
-          </span>
+          <Link
+            href="/"
+            onClick={() => setIsOpen(false)}
+            aria-label={siteConfig.name}
+            className="flex items-center hover:opacity-90 transition-opacity"
+          >
+            <Image
+              src="/images/logo/logo-primary.svg"
+              alt={siteConfig.name}
+              className="h-9 w-auto object-contain block"
+              width={144}
+              height={36}
+            />
+          </Link>
           <button
             ref={closeButtonRef}
             type="button"

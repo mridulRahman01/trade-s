@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="100%" height="100%">
+  <!-- MIR SULAIMAN TRADE CENTER - Ultra-Crisp Simplified Favicon (16px / 32px) -->
+  <!-- Solid High-Contrast Background Plate -->
+  <rect width="32" height="32" rx="4" fill="#111111"/>
+
+  <!-- Simplified Thick M Frame in White (#FFFFFF) -->
+  <path d="M4 28 V6 H10 L16 14 L22 6 H28 V19 H22 V12 L16 20 L10 12 V28 H4 Z" fill="#FFFFFF"/>
+
+  <!-- Simplified Yellow Bucket Block (#FFC20E) with zero fine details -->
+  <path d="M22 19 H28 V25 L25 28 H16 L14 23 H19 L22 19 Z" fill="#FFC20E"/>
+</svg>

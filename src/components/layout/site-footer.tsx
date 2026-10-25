@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { navigationConfig } from "@/config/navigation";
 
@@ -11,10 +12,16 @@ export function SiteFooter() {
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
         {/* Main Footer Line */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <p className="font-bold text-[#111111] font-heading text-lg">
-              {siteConfig.name}
-            </p>
+          <div className="space-y-2">
+            <Link href="/" aria-label={siteConfig.name} className="inline-block hover:opacity-90 transition-opacity">
+              <Image
+                src="/images/logo/logo-primary.svg"
+                alt={siteConfig.name}
+                className="h-10 w-auto object-contain block"
+                width={160}
+                height={40}
+              />
+            </Link>
             <p className="text-xs text-[#3D3D3D]">
               Proprietor: {siteConfig.proprietor} · {siteConfig.address.formatted}
             </p>

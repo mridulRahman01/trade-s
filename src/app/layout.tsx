@@ -39,6 +39,14 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -46,6 +54,14 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: `${siteConfig.name} | Heavy Construction Equipment Rentals`,
     description: siteConfig.description,
+    images: [
+      {
+        url: "/images/logo/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.name} - Commercial Equipment Rental`,
+      },
+    ],
   },
   robots: {
     index: true,

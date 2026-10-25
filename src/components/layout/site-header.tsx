@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { navigationConfig } from "@/config/navigation";
@@ -16,14 +17,20 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 w-full h-16 bg-white border-b border-[#E5E5E0]">
       <div className="max-w-[1200px] h-full mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
-        {/* Left: Logo wordmark on ONE line at every screen width */}
+        {/* Left: Official Brand Logo on ONE line at every screen width */}
         <Link
           href="/"
-          className="flex items-center space-x-2 text-[#111111] hover:opacity-90 transition-opacity min-w-0 shrink"
+          aria-label={siteConfig.name}
+          className="flex items-center hover:opacity-90 transition-opacity shrink-0 py-1"
         >
-          <span className="font-heading text-[15px] sm:text-2xl font-bold tracking-tight uppercase whitespace-nowrap truncate">
-            {siteConfig.shortName}
-          </span>
+          <Image
+            src="/images/logo/logo-primary.svg"
+            alt={siteConfig.name}
+            className="h-10 lg:h-12 w-auto object-contain block"
+            width={192}
+            height={48}
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation (1024px+): Visible, on ONE line */}
