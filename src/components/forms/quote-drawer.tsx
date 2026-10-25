@@ -236,6 +236,9 @@ function QuoteDrawerContent({ initialMachine, initialMessage = "", onClose }: Dr
                 className="w-full h-12 px-3 text-base text-[#111111] bg-white border border-[#E5E5E0] rounded-[6px] focus:outline-none focus:ring-2 focus:ring-[#FFC20E]"
               >
                 <option value="">Select a Machine (or General Inquiry)</option>
+                {machine && !allEquipment.some((eq) => eq.name === machine) && (
+                  <option value={machine}>{machine}</option>
+                )}
                 {allEquipment.map((eq) => (
                   <option key={eq.slug} value={eq.name}>
                     {eq.name} ({eq.brand})

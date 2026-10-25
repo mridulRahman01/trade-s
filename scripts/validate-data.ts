@@ -3,6 +3,7 @@ import path from "path";
 import { z } from "zod";
 import { allEquipment } from "../src/data/equipment";
 import { categories } from "../src/data/categories";
+import { heroNeedsConfig } from "../src/config/hero-finder";
 
 const imperialUnitsRegex = /(lb|lbf|hp|ft|in|psi|cu yd|yd³|gal|bpm|vpm|mph|ton|tons)/i;
 
@@ -110,12 +111,37 @@ function validateData(): boolean {
     }
   }
 
+  // 3. Validate Hero Finder Config
+  console.log("Checking Hero Finder needs configuration...");
+  if (!Array.isArray(heroNeedsConfig) || heroNeedsConfig.length !== 5) {
+    console.error(`[ERROR] Expected exactly 5 hero finder needs, found ${heroNeedsConfig?.length}`);
+    hasErrors = true;
+  }
+
+  const allEquipmentSlugs = new Set(allEquipment.map((e) => e.slug));
+  for (const need of heroNeedsConfig) {
+    if (!need.productSlugs || need.productSlugs.length === 0) {
+      console.error(`[ERROR] Hero finder need "${need.id}" lists no products.`);
+      hasErrors = true;
+      continue;
+    }
+
+    for (const slug of need.productSlugs) {
+      if (!allEquipmentSlugs.has(slug)) {
+        console.error(
+          `[ERROR] Hero finder need "${need.id}" references unknown product slug "${slug}"`
+        );
+        hasErrors = true;
+      }
+    }
+  }
+
   if (hasErrors) {
     console.error("\n❌ Data validation FAILED. Correct the errors above.");
     return false;
   }
 
-  console.log("\n✅ All 20 equipment catalog and category data PASSED validation!");
+  console.log("\n✅ All 20 equipment catalog, category, and hero finder data PASSED validation!");
   console.log("-----------------------------------------\n");
   return true;
 }
