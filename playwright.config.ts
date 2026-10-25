@@ -28,6 +28,13 @@ export default defineConfig({
       },
     },
     {
+      name: "Galaxy S9+",
+      use: {
+        ...devices["Galaxy S9+"],
+        defaultBrowserType: "chromium",
+      },
+    },
+    {
       name: "iPad",
       use: {
         ...devices["iPad Mini"],

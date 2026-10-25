@@ -53,16 +53,18 @@ export const navigationConfig = {
     },
     { label: "About", title: "About", href: "/about" },
     { label: "Rental Rates", title: "Rental Rates", href: "/rental-rates" },
-    { label: "Contact", title: "Contact", href: "/#contact" },
+    { label: "Contact", title: "Contact", href: "/contact" },
   ] as NavItem[],
 
   /**
    * Desktop header links (1024px+)
    */
   desktopNav: [
+    { label: "Home", title: "Home", href: "/" },
     { label: "Equipment", title: "Equipment", href: "/#equipment" },
     { label: "About", title: "About", href: "/about" },
     { label: "Rental Rates", title: "Rental Rates", href: "/rental-rates" },
+    { label: "Contact", title: "Contact", href: "/contact" },
   ] as NavItem[],
 
   /**
@@ -73,7 +75,7 @@ export const navigationConfig = {
     { label: "Equipment", title: "Equipment", href: "/#equipment" },
     { label: "About", title: "About", href: "/about" },
     { label: "Rental Rates", title: "Rental Rates", href: "/rental-rates" },
-    { label: "Contact", title: "Contact", href: "/#contact" },
+    { label: "Contact", title: "Contact", href: "/contact" },
   ] as NavItem[],
 
   privacyHref: "/privacy",

@@ -30,20 +30,26 @@ export function SiteHeader() {
             width={192}
             height={48}
             priority
+            loading="eager"
+            fetchPriority="high"
           />
         </Link>
 
         {/* Desktop Navigation (1024px+): Visible, on ONE line */}
-        <div className="hidden lg:flex items-center space-x-4 xl:space-x-5 shrink-0">
-          <nav aria-label="Main Navigation" className="flex items-center space-x-4 xl:space-x-5">
+        <div className="hidden lg:flex items-center space-x-3 xl:space-x-4 shrink-0">
+          <nav aria-label="Main Navigation" className="flex items-center space-x-3 xl:space-x-4">
             {navigationConfig.desktopNav.map((item) => {
               const isRates = item.href === "/rental-rates";
               const isAbout = item.href === "/about";
+              const isContact = item.href === "/contact";
+              const isHome = item.href === "/";
               const isActive =
                 (isRates && pathname === "/rental-rates") ||
-                (isAbout && pathname === "/about");
+                (isAbout && pathname === "/about") ||
+                (isContact && pathname === "/contact") ||
+                (isHome && pathname === "/");
 
-              const Icon = isRates ? Tag : isAbout ? Info : HardHat;
+              const Icon = isRates ? Tag : isAbout ? Info : isContact ? Phone : HardHat;
 
               return (
                 <Link
@@ -86,8 +92,20 @@ export function SiteHeader() {
           {/* Yellow Request a Quote Button */}
           <button
             type="button"
-            onClick={() => openDrawer()}
-            className="h-12 px-5 xl:px-6 rounded-[6px] bg-[#FFC20E] hover:bg-[#E6AC00] text-[#111111] font-semibold text-sm transition-all whitespace-nowrap active:scale-[0.98] hover:shadow-xs focus:outline-none focus:ring-2 focus:ring-[#111111] flex items-center"
+            onClick={() => {
+              if (pathname === "/contact") {
+                const formEl = document.getElementById("contact-form");
+                if (formEl) {
+                  formEl.scrollIntoView({ behavior: "smooth" });
+                  const nameInput = document.getElementById("field-name");
+                  nameInput?.focus();
+                  setTimeout(() => nameInput?.focus(), 100);
+                  return;
+                }
+              }
+              openDrawer();
+            }}
+            className="h-12 px-4 xl:px-5 rounded-[6px] bg-[#FFC20E] hover:bg-[#E6AC00] text-[#111111] font-semibold text-sm transition-all whitespace-nowrap active:scale-[0.98] hover:shadow-xs focus:outline-none focus:ring-2 focus:ring-[#111111] flex items-center"
           >
             <FileText className="w-4 h-4 mr-2 text-[#111111]" />
             Request a Quote

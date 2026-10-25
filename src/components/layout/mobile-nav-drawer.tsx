@@ -163,6 +163,18 @@ export function MobileNavDrawer() {
   // Close and open Quote Drawer without stacking overlays
   const handleQuoteClick = () => {
     setIsOpen(false);
+    if (pathname === "/contact") {
+      setTimeout(() => {
+        const formEl = document.getElementById("contact-form");
+        if (formEl) {
+          formEl.scrollIntoView({ behavior: "smooth" });
+          const nameInput = document.getElementById("field-name");
+          nameInput?.focus();
+          setTimeout(() => nameInput?.focus(), 100);
+        }
+      }, 50);
+      return;
+    }
     setTimeout(() => {
       openDrawer();
     }, 60);

@@ -13,13 +13,16 @@ export function validateSpamGuard(data: {
     return { isSpam: true, reason: "Honeypot field was triggered." };
   }
 
-  // 2. Minimum fill time check (bots submit in < 1 second)
+  // 2. Minimum fill-time check (reject under 3 seconds = 3000ms)
   // Skip check in test environments
-  if (process.env.NODE_ENV !== "test" && process.env.PLAYWRIGHT_TEST !== "true" && data._time) {
+  if (
+    process.env.NODE_ENV !== "test" &&
+    process.env.PLAYWRIGHT_TEST !== "true" &&
+    data._time
+  ) {
     const elapsed = Date.now() - data._time;
-    // Require at least 2.5 seconds to fill out the form
-    if (elapsed < 2500) {
-      return { isSpam: true, reason: "Form submitted too quickly." };
+    if (elapsed < 3000) {
+      return { isSpam: true, reason: "Form submitted too quickly (under 3 seconds)." };
     }
   }
 

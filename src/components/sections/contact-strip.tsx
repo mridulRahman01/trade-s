@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { useQuoteDrawer } from "@/context/quote-drawer-context";
 import { toast } from "@/components/ui/toaster";
-import { Phone, Mail, MapPin, Clock, MessageCircle, User } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, MessageCircle, User, ArrowRight } from "lucide-react";
 
 export function ContactStrip() {
   const { openDrawer } = useQuoteDrawer();
@@ -127,13 +128,23 @@ export function ContactStrip() {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => openDrawer()}
-            className="h-12 px-8 rounded-[6px] bg-[#FFC20E] hover:bg-[#E6AC00] text-[#111111] font-semibold text-base transition-colors whitespace-nowrap active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#111111]"
-          >
-            Request a Quote
-          </button>
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <Link
+              href="/contact"
+              className="h-12 px-6 rounded-[6px] border border-[#111111] bg-white hover:bg-[#F7F7F5] text-[#111111] font-semibold text-sm sm:text-base transition-colors whitespace-nowrap active:scale-[0.98] flex items-center justify-center group"
+            >
+              <span>Full contact details and map</span>
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => openDrawer()}
+              className="h-12 px-8 rounded-[6px] bg-[#FFC20E] hover:bg-[#E6AC00] text-[#111111] font-semibold text-base transition-colors whitespace-nowrap active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#111111]"
+            >
+              Request a Quote
+            </button>
+          </div>
         </div>
       </div>
     </section>

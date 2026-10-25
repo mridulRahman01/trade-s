@@ -1,10 +1,14 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
 import { navigationConfig } from "@/config/navigation";
 
 export function SiteFooter() {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -28,15 +32,23 @@ export function SiteFooter() {
           </div>
 
           <nav aria-label="Footer Navigation" className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm">
-            {navigationConfig.footerNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-[#111111] hover:underline"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navigationConfig.footerNav.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`text-[#111111] hover:underline transition-colors ${
+                    isActive
+                      ? "font-bold underline decoration-[#FFC20E] decoration-2 underline-offset-4"
+                      : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
             <a
               href={`tel:${siteConfig.contact.phoneRaw}`}
               className="text-[#111111] hover:underline"

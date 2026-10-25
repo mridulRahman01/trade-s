@@ -24,11 +24,20 @@ export const siteConfig = {
     formatted: "Tabunia Bazaar, Pabna, Bangladesh",
   },
   operatingHours: {
-    display: "Saturday to Thursday, 11:00 AM to 11:00 PM",
-    weekdays: "Saturday – Thursday: 11:00 AM – 11:00 PM",
+    display: "Saturday to Thursday, 11:00 AM to 11:00 PM. Friday: Closed.",
+    weekdays: "Saturday to Thursday: 11:00 AM – 11:00 PM",
     weekend: "Friday: Closed",
     friday: "Friday: Closed",
     note: "Closed on Friday",
+  },
+  map: {
+    query: "Tabunia Bazaar, Pabna, Bangladesh",
+    embedUrl:
+      "https://www.google.com/maps?q=Tabunia+Bazaar,+Pabna,+Bangladesh&output=embed",
+    searchUrl:
+      "https://www.google.com/maps/search/?api=1&query=Tabunia+Bazaar+Pabna+Bangladesh",
+    directionsUrl:
+      "https://www.google.com/maps/dir/?api=1&destination=Tabunia+Bazaar+Pabna+Bangladesh",
   },
   disclaimer:
     "Brand names are trademarks of their respective owners. M/S Mir Sulaiman Trade Center is not affiliated with the manufacturers.",
