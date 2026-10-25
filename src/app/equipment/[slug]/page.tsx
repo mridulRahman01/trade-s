@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { allEquipment, getEquipmentBySlug, getRelatedEquipment } from "@/data/equipment";
@@ -269,7 +269,9 @@ export default async function EquipmentDetailPage({ params }: PageProps) {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {related.map((rel) => (
+                {related.map((rel) => {
+                  const relCardSrc = rel.images[0]?.src?.replace(/-main\.webp$/, "-card.webp") || rel.images[0]?.src || "/images/hero/hero-fleet.webp";
+                  return (
                   <div
                     key={rel.slug}
                     className="bg-white border border-[#E5E5E0] rounded-[6px] overflow-hidden flex flex-col justify-between hover:border-[#111111] transition-colors"
@@ -277,15 +279,16 @@ export default async function EquipmentDetailPage({ params }: PageProps) {
                     <div>
                       <Link
                         href={`/equipment/${rel.slug}`}
-                        className="block relative aspect-[4/3] w-full bg-[#F7F7F5] overflow-hidden border-b border-[#E5E5E0]"
+                        className="block relative aspect-[4/3] w-full bg-[#F7F7F5] overflow-hidden border-b border-[#E5E5E0] group"
                       >
-                        <Image
-                          src={rel.images[0]?.src || "/images/hero/hero-fleet.webp"}
+                        <ImageWithSkeleton
+                          src={relCardSrc}
                           alt={rel.images[0]?.alt || rel.name}
                           fill
                           loading="lazy"
-                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          containerClassName="w-full h-full"
                         />
                       </Link>
                       <div className="p-4 space-y-2">
@@ -311,7 +314,8 @@ export default async function EquipmentDetailPage({ params }: PageProps) {
                       </Link>
                     </div>
                   </div>
-                ))}
+                );
+              })}
               </div>
             </div>
           )}

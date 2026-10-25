@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
 import { EquipmentImage } from "@/types/equipment";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 
@@ -29,15 +30,16 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
 
   return (
     <div className="space-y-4">
-      {/* Main Image Container */}
+      {/* Main Image Container with Skeleton Loader */}
       <div className="relative aspect-[3/2] sm:aspect-[4/3] w-full bg-[#F7F7F5] rounded-[6px] overflow-hidden border border-[#E5E5E0] group">
-        <Image
+        <ImageWithSkeleton
           src={galleryImages[activeIndex].src}
           alt={galleryImages[activeIndex].alt || `${productName} view`}
           fill
           priority
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
           className="object-cover"
+          containerClassName="w-full h-full"
         />
 
         {/* Expand / Fullscreen Button */}

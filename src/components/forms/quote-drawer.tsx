@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef, useTransition } from "react";
 import { useQuoteDrawer } from "@/context/quote-drawer-context";
 import { siteConfig } from "@/config/site";
 import { allEquipment } from "@/data/equipment";
+import { toast } from "@/components/ui/toaster";
 import { X, CheckCircle2, Phone, AlertCircle, Loader2 } from "lucide-react";
 
 interface DrawerContentProps {
@@ -86,16 +87,36 @@ function QuoteDrawerContent({ initialMachine, initialMessage = "", onClose }: Dr
         const result = await res.json();
 
         if (!res.ok) {
-          setServerError(
-            result.error || "Unable to send your request. Please call or WhatsApp us directly."
-          );
+          const err = result.error || "Unable to send your request. Please call or WhatsApp us directly.";
+          setServerError(err);
+          toast.error("Quote Submission Issue", {
+            description: err,
+            action: {
+              label: "Call Desk",
+              onClick: () => { window.location.href = `tel:${siteConfig.contact.phoneRaw}`; },
+            },
+          });
         } else {
           setIsSuccess(true);
+          toast.success("Quote Request Received!", {
+            description: `We'll review equipment availability for ${machine || "your project"} and contact you promptly.`,
+            action: {
+              label: "WhatsApp",
+              onClick: () => window.open(siteConfig.contact.whatsappUrl, "_blank"),
+            },
+            duration: 6000,
+          });
         }
       } catch {
-        setServerError(
-          "Connection issue. Please call or WhatsApp our dispatch desk directly."
-        );
+        const err = "Connection issue. Please call or WhatsApp our dispatch desk directly.";
+        setServerError(err);
+        toast.error("Network Issue", {
+          description: err,
+          action: {
+            label: "WhatsApp",
+            onClick: () => window.open(siteConfig.contact.whatsappUrl, "_blank"),
+          },
+        });
       }
     });
   };

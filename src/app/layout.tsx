@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { LocalBusinessSchema } from "@/components/seo/local-business-schema";
 import { QuoteDrawerProvider } from "@/context/quote-drawer-context";
 import { QuoteDrawer } from "@/components/forms/quote-drawer";
+import { Toaster } from "@/components/ui/toaster";
 
 const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
@@ -87,6 +88,9 @@ export default function RootLayout({
 
           {/* Slide-in / Mobile Full-Screen Quote Drawer */}
           <QuoteDrawer />
+
+          {/* Interactive React Toaster */}
+          <Toaster />
         </QuoteDrawerProvider>
       </body>
     </html>

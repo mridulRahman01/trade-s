@@ -8,6 +8,7 @@ import {
 } from "@/data/rental-rates-content";
 import { useQuoteDrawer } from "@/context/quote-drawer-context";
 import { siteConfig } from "@/config/site";
+import { toast } from "@/components/ui/toaster";
 import { Search, Phone, ArrowUpRight } from "lucide-react";
 
 export function RatesPricingSection() {
@@ -60,9 +61,13 @@ export function RatesPricingSection() {
 
   const handleGetQuote = (row: PriceRow) => {
     const sizeDisplay = row.sizeOption !== "—" ? ` (${row.sizeOption})` : "";
+    const name = `${row.equipment}${sizeDisplay}`;
     openDrawer({
-      machineName: `${row.equipment}${sizeDisplay}`,
-      initialMessage: `I am interested in renting the ${row.equipment}${sizeDisplay}. Please provide availability and rate details.`,
+      machineName: name,
+      initialMessage: `I am interested in renting the ${name}. Please provide availability and rate details.`,
+    });
+    toast.info("Quote Proposal Drawer Opened", {
+      description: `Rate proposal inquiry ready for ${name}.`,
     });
   };
 

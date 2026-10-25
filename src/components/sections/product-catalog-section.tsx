@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import { ImageWithSkeleton } from "@/components/ui/image-with-skeleton";
 import { allEquipment } from "@/data/equipment";
 import { useQuoteDrawer } from "@/context/quote-drawer-context";
 import { Search } from "lucide-react";
@@ -116,25 +116,29 @@ export function ProductCatalogSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredEquipment.map((item) => (
+            {filteredEquipment.map((item, idx) => {
+              const cardImageSrc = item.images[0]?.src?.replace(/-main\.webp$/, "-card.webp") || item.images[0]?.src || "/images/hero/hero-fleet.webp";
+              return (
               <div
                 key={item.slug}
                 data-testid="equipment-card"
                 className="bg-white border border-[#E5E5E0] rounded-[6px] overflow-hidden flex flex-col justify-between hover:border-[#111111] transition-colors"
               >
                 <div>
-                  {/* Fixed 4:3 Image Container */}
+                  {/* Fixed 4:3 Image Container with Skeleton Loader & Balanced Priority */}
                   <Link
                     href={`/equipment/${item.slug}`}
-                    className="block relative aspect-[4/3] w-full bg-[#F7F7F5] overflow-hidden border-b border-[#E5E5E0]"
+                    className="block relative aspect-[4/3] w-full bg-[#F7F7F5] overflow-hidden border-b border-[#E5E5E0] group"
                   >
-                    <Image
-                      src={item.images[0]?.src || "/images/hero/hero-fleet.webp"}
+                    <ImageWithSkeleton
+                      src={cardImageSrc}
                       alt={item.images[0]?.alt || item.name}
                       fill
-                      loading="lazy"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-300 hover:scale-105"
+                      priority={idx < 2}
+                      loading={idx < 2 ? "eager" : "lazy"}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      containerClassName="w-full h-full"
                     />
                   </Link>
 
@@ -197,7 +201,8 @@ export function ProductCatalogSection() {
                   </button>
                 </div>
               </div>
-            ))}
+            );
+          })}
           </div>
         )}
       </div>

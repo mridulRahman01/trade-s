@@ -3,6 +3,7 @@
 import React from "react";
 import { siteConfig } from "@/config/site";
 import { useQuoteDrawer } from "@/context/quote-drawer-context";
+import { toast } from "@/components/ui/toaster";
 import { Phone, Mail, MapPin, Clock, MessageCircle, User } from "lucide-react";
 
 export function ContactStrip() {
@@ -26,6 +27,11 @@ export function ContactStrip() {
           {/* Phone */}
           <a
             href={`tel:${siteConfig.contact.phoneRaw}`}
+            onClick={() => {
+              toast.info("Connecting to Dispatch Desk", {
+                description: `Calling ${siteConfig.contact.phone}...`,
+              });
+            }}
             className="flex items-center min-h-[56px] p-4 bg-[#F7F7F5] border border-[#E5E5E0] rounded-[6px] hover:border-[#111111] active:bg-[#E5E5E0] transition-colors group"
           >
             <div className="w-10 h-10 rounded-full bg-white border border-[#E5E5E0] flex items-center justify-center shrink-0 mr-3 text-[#111111] group-hover:bg-[#FFC20E] transition-colors">
@@ -46,6 +52,11 @@ export function ContactStrip() {
             href={siteConfig.contact.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => {
+              toast.success("Opening WhatsApp Chat", {
+                description: `Direct messaging ${siteConfig.contact.whatsapp}...`,
+              });
+            }}
             className="flex items-center min-h-[56px] p-4 bg-[#F7F7F5] border border-[#E5E5E0] rounded-[6px] hover:border-[#111111] active:bg-[#E5E5E0] transition-colors group"
           >
             <div className="w-10 h-10 rounded-full bg-white border border-[#E5E5E0] flex items-center justify-center shrink-0 mr-3 text-[#111111] group-hover:bg-[#FFC20E] transition-colors">
@@ -64,6 +75,11 @@ export function ContactStrip() {
           {/* Email */}
           <a
             href={`mailto:${siteConfig.contact.email}`}
+            onClick={() => {
+              toast.info("Opening Email Client", {
+                description: `Composing email to ${siteConfig.contact.email}...`,
+              });
+            }}
             className="flex items-center min-h-[56px] p-4 bg-[#F7F7F5] border border-[#E5E5E0] rounded-[6px] hover:border-[#111111] active:bg-[#E5E5E0] transition-colors group"
           >
             <div className="w-10 h-10 rounded-full bg-white border border-[#E5E5E0] flex items-center justify-center shrink-0 mr-3 text-[#111111] group-hover:bg-[#FFC20E] transition-colors">
