@@ -29,6 +29,9 @@ export function useLockScroll(locked: boolean) {
 
       // Restore exact scroll position
       window.scrollTo(0, scrollY);
+      requestAnimationFrame(() => {
+        window.scrollTo(0, scrollY);
+      });
     };
   }, [locked]);
 }

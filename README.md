@@ -9,16 +9,25 @@ Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind
 ## 🏢 Business Identity & Contact Details
 
 - **Business Name:** M/S Mir Sulaiman Trade Center
-- **Proprietor:** Mir Sabbin Hossain
+- **Proprietor:** Mir Sabbir Hossain
 - **Address:** Tabunia Bazaar, Pabna, Bangladesh
 - **Mobile / WhatsApp:** [01711-269863](tel:+8801711269863) · [WhatsApp Chat](https://wa.me/8801711269863)
 - **Email:** [info@msmirsulaimantradecenter.com](mailto:info@msmirsulaimantradecenter.com)
-- **Operating Hours:** 11:00 AM to 11:00 PM, Monday to Friday
+- **Operating Hours:** Saturday to Thursday, 11:00 AM to 11:00 PM
 
 ---
 
 ## ⚡ Key Highlights & Architecture
 
+- **20 Equipment Fleet & Supplies Catalog:**
+  - 20 products spanning 5 distinct contractor categories:
+    - **Excavators (9 items):** CAT & SANY crawler, wheeled, and long-reach boom excavators.
+    - **Bulldozers (3 items):** Shantui & heavy rock bulldozers.
+    - **Construction Machines (4 items):** Concrete Mixture Machine, Vibrator Machine, Rod Cutter and Rod Bender Machine, Roller and Dump Trucks.
+    - **Safety Equipment (1 item):** Helmets and Safety Belts.
+    - **Imported Tools and Supplies (3 items):** Importer of Cutting Disks, Cutting Blades, Hardware Tools from China.
+  - Horizontally scrolling mobile filter chips with snap and active yellow indicator.
+  - Dedicated individual detail pages (`/equipment/[slug]`) with specifications, options to confirm, "How to order" guidance, and quote drawer integration.
 - **Zero Database / Zero Auth:** High-speed statically pre-rendered catalog with serverless contact handling for maximum reliability, speed, and security.
 - **Strict Industrial Design System:**
   - **Colors:** White `#FFFFFF`, alternate sections `#F7F7F5`, yellow `#FFC20E` buttons and accents (`#E6AC00` hover, dark `#111111` text on yellow), body text `#3D3D3D`, borders `#E5E5E0`.

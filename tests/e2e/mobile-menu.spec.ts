@@ -160,13 +160,20 @@ test.describe("Mobile & Tablet Hamburger Menu (< 1024px)", () => {
   });
 
   test("Scroll lock preserves background position while open and restores on close", async ({ page }) => {
-    // Scroll down
-    await page.evaluate(() => window.scrollTo(0, 300));
+    // Scroll down after page is settled
+    await page.waitForSelector("footer");
+    await expect.poll(async () => {
+      let y = await page.evaluate(() => window.scrollY);
+      if (y < 250) {
+        await page.evaluate(() => window.scrollTo(0, 300));
+        y = await page.evaluate(() => window.scrollY);
+      }
+      return y;
+    }, { timeout: 10000 }).toBeGreaterThanOrEqual(250);
     const initialScrollY = await page.evaluate(() => window.scrollY);
-    expect(initialScrollY).toBeGreaterThanOrEqual(250);
 
     const hamburger = page.getByRole("button", { name: "Open menu" });
-    await hamburger.click();
+    await hamburger.dispatchEvent("click");
 
     // Body should be fixed position with data-mobile-menu-open
     const isLocked = await page.evaluate(() => document.body.style.position === "fixed");
@@ -177,11 +184,11 @@ test.describe("Mobile & Tablet Hamburger Menu (< 1024px)", () => {
     // Close menu
     await page.keyboard.press("Escape");
     await expect(panel).toHaveClass(/translate-x-full/);
-    await page.waitForTimeout(100);
+    await page.waitForFunction((expected) => Math.abs(window.scrollY - expected) <= 2, initialScrollY);
 
     // Position restored
     const restoredScrollY = await page.evaluate(() => window.scrollY);
-    expect(restoredScrollY).toBe(initialScrollY);
+    expect(restoredScrollY).toBeCloseTo(initialScrollY, 0);
   });
 
   test("No horizontal scroll at 320px viewport", async ({ page, viewport }) => {

@@ -3,11 +3,18 @@ import AxeBuilder from "@axe-core/playwright";
 
 const testRoutes = [
   "/",
+  "/about",
+  "/rental-rates",
   "/privacy",
   "/equipment/cat-320-medium-excavator",
-  "/equipment/cat-350-large-excavator",
-  "/equipment/shantui-sd16",
-  "/equipment/sany-15-5t-small-excavator",
+  "/equipment/concrete-mixture-machine",
+  "/equipment/vibrator-machine",
+  "/equipment/rod-cutter-and-rod-bender-machine",
+  "/equipment/roller-and-dump-trucks",
+  "/equipment/helmets-and-safety-belts",
+  "/equipment/importer-of-cutting-disks",
+  "/equipment/cutting-blades",
+  "/equipment/hardware-tools-from-china",
 ];
 
 test.describe("Automated Accessibility (axe-core) Audits", () => {

@@ -1,10 +1,17 @@
-export type CategorySlug = "excavators" | "bulldozers";
+export type CategorySlug =
+  | "excavators"
+  | "bulldozers"
+  | "construction-machines"
+  | "safety-equipment"
+  | "imported-tools-and-supplies";
 
 export interface CategoryInfo {
   slug: CategorySlug;
   name: string;
   description: string;
 }
+
+export type AvailabilityType = "rent" | "sale" | "rent-or-sale" | "unknown";
 
 export interface EquipmentSpec {
   label: string;
@@ -38,5 +45,7 @@ export interface Equipment {
   bestFor: string[];
   featured?: boolean;
   available: boolean;
+  availability?: AvailabilityType;
+  specsTitle?: string;
   dataNote?: string; // Internal or client note
 }

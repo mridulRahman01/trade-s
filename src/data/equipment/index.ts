@@ -1,10 +1,16 @@
 import { Equipment, CategorySlug } from "@/types/equipment";
 import { excavators } from "./excavators";
 import { bulldozers } from "./bulldozers";
+import { constructionMachines } from "./construction-machines";
+import { safetyEquipment } from "./safety-equipment";
+import { importedTools } from "./imported-tools";
 
 export const allEquipment: Equipment[] = [
   ...excavators,
   ...bulldozers,
+  ...constructionMachines,
+  ...safetyEquipment,
+  ...importedTools,
 ];
 
 export function getEquipmentBySlug(slug: string): Equipment | undefined {

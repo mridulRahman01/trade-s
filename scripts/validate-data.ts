@@ -9,7 +9,13 @@ const imperialUnitsRegex = /(lb|lbf|hp|ft|in|psi|cu yd|yd³|gal|bpm|vpm|mph|ton|
 const equipmentSchema = z.object({
   slug: z.string().regex(/^[a-z0-9-]+$/, "Slug must be lowercase alphanumeric with hyphens"),
   name: z.string().min(3, "Name must be at least 3 characters"),
-  category: z.enum(["excavators", "bulldozers"]),
+  category: z.enum([
+    "excavators",
+    "bulldozers",
+    "construction-machines",
+    "safety-equipment",
+    "imported-tools-and-supplies",
+  ]),
   brand: z.string().min(2),
   summary: z.string().min(20, "Summary must be at least 20 characters"),
   description: z.string().min(40, "Description must be at least 40 characters"),
@@ -33,6 +39,7 @@ const equipmentSchema = z.object({
   features: z.array(z.string().min(5)).min(2),
   bestFor: z.array(z.string().min(5)).min(2),
   available: z.boolean(),
+  availability: z.enum(["rent", "sale", "rent-or-sale", "unknown"]).optional(),
 });
 
 function validateData(): boolean {
@@ -45,6 +52,11 @@ function validateData(): boolean {
 
   // 1. Validate Equipment
   console.log(`Checking ${allEquipment.length} equipment items...`);
+  if (allEquipment.length !== 20) {
+    console.error(`[ERROR] Expected exactly 20 equipment items, found ${allEquipment.length}`);
+    hasErrors = true;
+  }
+
   const seenSlugs = new Set<string>();
 
   for (const item of allEquipment) {
@@ -57,6 +69,17 @@ function validateData(): boolean {
     const parseResult = equipmentSchema.safeParse(item);
     if (!parseResult.success) {
       console.error(`[ERROR] Equipment "${item.slug}" validation failed:`, parseResult.error.format());
+      hasErrors = true;
+    }
+
+    // Check availability field on new equipment items
+    if (
+      (item.category === "construction-machines" ||
+        item.category === "safety-equipment" ||
+        item.category === "imported-tools-and-supplies") &&
+      !item.availability
+    ) {
+      console.error(`[ERROR] Equipment "${item.slug}" is missing required availability field.`);
       hasErrors = true;
     }
 
@@ -92,7 +115,7 @@ function validateData(): boolean {
     return false;
   }
 
-  console.log("\n✅ All 12 equipment catalog and category data PASSED validation!");
+  console.log("\n✅ All 20 equipment catalog and category data PASSED validation!");
   console.log("-----------------------------------------\n");
   return true;
 }

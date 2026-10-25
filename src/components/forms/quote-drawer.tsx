@@ -137,6 +137,9 @@ function QuoteDrawerContent({ initialMachine, initialMessage = "", onClose }: Dr
               <p className="text-[#3D3D3D] text-sm leading-relaxed">
                 Thank you, <strong>{name}</strong>. Our machinery coordinator is reviewing availability for <strong>{machine || "your project"}</strong>.
               </p>
+              <p className="text-xs text-[#6B6B6B]">
+                Operating hours: {siteConfig.operatingHours.display}
+              </p>
             </div>
 
             <div className="border border-[#E5E5E0] bg-[#F7F7F5] rounded-[6px] p-4 text-center space-y-3">

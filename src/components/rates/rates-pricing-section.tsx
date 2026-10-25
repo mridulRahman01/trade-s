@@ -239,6 +239,7 @@ export function RatesPricingSection() {
                 {table.rows.map((row: PriceRow, idx: number) => (
                   <div
                     key={`mobile-${table.id}-${idx}-${row.equipment}-${row.sizeOption}`}
+                    data-mobile-price-card
                     className="p-4 bg-white border border-[#E5E5E0] rounded-[6px] space-y-3 shadow-sm"
                   >
                     <div className="border-b border-[#E5E5E0] pb-2">

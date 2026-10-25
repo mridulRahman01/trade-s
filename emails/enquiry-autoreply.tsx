@@ -97,7 +97,7 @@ export function EnquiryAutoreplyEmail({ data }: { data: EnquiryFormData }) {
               {siteConfig.name} · {siteConfig.address.formatted}
             </Text>
             <Text style={{ fontSize: "12px", color: "#64748b", margin: 0 }}>
-              Operating Hours: {siteConfig.operatingHours.weekdays}
+              Operating Hours: {siteConfig.operatingHours.display}
             </Text>
           </Section>
         </Container>

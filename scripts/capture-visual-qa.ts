@@ -1,59 +1,95 @@
-import { chromium } from "@playwright/test";
-import path from "path";
+import { chromium } from "playwright";
+import * as fs from "fs";
+import * as path from "path";
 
 const VIEWPORTS = [
-  { name: "320px-portrait", width: 320, height: 640 },
-  { name: "360px-portrait", width: 360, height: 740 },
-  { name: "390px-portrait", width: 390, height: 844 },
-  { name: "430px-portrait", width: 430, height: 932 },
-  { name: "667px-landscape", width: 667, height: 375 },
-  { name: "768px-tablet", width: 768, height: 1024 },
-  { name: "1440px-desktop", width: 1440, height: 900 },
+  { name: "360px", width: 360, height: 740 },
+  { name: "768px", width: 768, height: 1024 },
+  { name: "1440px", width: 1440, height: 900 },
 ];
 
-const OUTPUT_DIR = "/home/mridul/.gemini/antigravity-ide/brain/c7d01152-87ca-4911-b09f-85711ff56ff1/screenshots";
+const OUTPUT_DIR = path.join(
+  process.env.HOME || "/home/mridul",
+  ".gemini/antigravity-ide/brain/c7d01152-87ca-4911-b09f-85711ff56ff1/screenshots/visual-qa"
+);
 
 async function main() {
+  if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  }
+
   const browser = await chromium.launch();
 
   for (const vp of VIEWPORTS) {
+    console.log(`\nCapturing screenshots at viewport: ${vp.name} (${vp.width}x${vp.height})`);
     const page = await browser.newPage({
       viewport: { width: vp.width, height: vp.height },
       deviceScaleFactor: 2,
     });
 
-    // 1. Home Page Full
-    await page.goto("http://localhost:3000/", { waitUntil: "networkidle" });
+    // 1. Home page grid with chips
+    await page.goto("http://localhost:3000/#equipment", { waitUntil: "networkidle" });
+    const equipmentSection = page.locator("#equipment");
+    await equipmentSection.scrollIntoViewIfNeeded();
+
+    // Chip: All
+    const allChip = page.getByRole("button", { name: "All", exact: true });
+    await allChip.click();
+    await page.waitForTimeout(300);
     await page.screenshot({
-      path: path.join(OUTPUT_DIR, `home-${vp.name}.png`),
+      path: path.join(OUTPUT_DIR, `home-grid-all-${vp.name}.png`),
       fullPage: false,
     });
 
-    // 2. Product Detail Page
-    await page.goto("http://localhost:3000/equipment/cat-320-medium-excavator", { waitUntil: "networkidle" });
+    // Chip: Construction Machines
+    const constrChip = page.getByRole("button", { name: "Construction Machines", exact: true });
+    await constrChip.click();
+    await page.waitForTimeout(300);
     await page.screenshot({
-      path: path.join(OUTPUT_DIR, `detail-${vp.name}.png`),
+      path: path.join(OUTPUT_DIR, `home-grid-construction-machines-${vp.name}.png`),
       fullPage: false,
     });
 
-    // 3. Open Quote Drawer on Product Detail
-    const quoteBtn = page.getByRole("button", { name: "Request a Quote" }).first();
-    await quoteBtn.click();
-    await page.waitForTimeout(400); // Wait for slide animation
+    // Chip: Safety Equipment
+    const safetyChip = page.getByRole("button", { name: "Safety Equipment", exact: true });
+    await safetyChip.click();
+    await page.waitForTimeout(300);
     await page.screenshot({
-      path: path.join(OUTPUT_DIR, `drawer-${vp.name}.png`),
+      path: path.join(OUTPUT_DIR, `home-grid-safety-equipment-${vp.name}.png`),
+      fullPage: false,
+    });
+
+    // Chip: Imported Tools and Supplies
+    const importedChip = page.getByRole("button", { name: "Imported Tools and Supplies", exact: true });
+    await importedChip.click();
+    await page.waitForTimeout(300);
+    await page.screenshot({
+      path: path.join(OUTPUT_DIR, `home-grid-imported-tools-${vp.name}.png`),
+      fullPage: false,
+    });
+
+    // 2. Detail Page 1: Concrete Mixture Machine
+    await page.goto("http://localhost:3000/equipment/concrete-mixture-machine", { waitUntil: "networkidle" });
+    await page.screenshot({
+      path: path.join(OUTPUT_DIR, `detail-concrete-mixture-machine-${vp.name}.png`),
+      fullPage: false,
+    });
+
+    // 3. Detail Page 2: Roller and Dump Trucks
+    await page.goto("http://localhost:3000/equipment/roller-and-dump-trucks", { waitUntil: "networkidle" });
+    await page.screenshot({
+      path: path.join(OUTPUT_DIR, `detail-roller-and-dump-trucks-${vp.name}.png`),
       fullPage: false,
     });
 
     await page.close();
-    console.log(`Captured screenshots for ${vp.name}`);
   }
 
   await browser.close();
-  console.log("All screenshots captured successfully!");
+  console.log(`\nVisual QA screenshots successfully saved to: ${OUTPUT_DIR}`);
 }
 
 main().catch((err) => {
-  console.error(err);
+  console.error("Screenshot capture failed:", err);
   process.exit(1);
 });

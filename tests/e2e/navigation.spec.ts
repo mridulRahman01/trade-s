@@ -9,7 +9,7 @@ test.describe("Site Navigation, Header & Footer", () => {
     await expect(header).toBeVisible();
 
     // Check single-line logo
-    await expect(header.getByText("Mir Sulaiman Trade Center")).toBeVisible();
+    await expect(header.getByRole("link", { name: "Mir Sulaiman Trade Center" })).toBeVisible();
 
     // Check Equipment link
     const eqLink = header.getByRole("link", { name: "Equipment", exact: true });
@@ -51,10 +51,10 @@ test.describe("Site Navigation, Header & Footer", () => {
     await expect(header).toBeVisible();
 
     // Logo wordmark visible
-    await expect(header.getByText("Mir Sulaiman Trade Center")).toBeVisible();
+    await expect(header.getByText("Mir Sulaiman Trade Center", { exact: true }).first()).toBeVisible();
 
     // Round phone button exists
-    const phoneBtn = header.getByRole("link", { name: /Call 01711-269863/i });
+    const phoneBtn = header.getByRole("link", { name: /Call 01711-269863/i }).first();
     await expect(phoneBtn).toBeVisible();
     await expect(phoneBtn).toHaveAttribute("href", "tel:+8801711269863");
 
@@ -84,10 +84,36 @@ test.describe("Site Navigation, Header & Footer", () => {
     await expect(footer).toBeVisible();
 
     await expect(footer.getByText("M/S Mir Sulaiman Trade Center").first()).toBeVisible();
-    await expect(footer.getByText("Proprietor: Mir Sabbin Hossain")).toBeVisible();
+    await expect(footer.getByText("Proprietor: Mir Sabbir Hossain")).toBeVisible();
     await expect(footer.getByRole("link", { name: "Rental Rates" })).toBeVisible();
     await expect(footer.getByText("01711-269863")).toBeVisible();
     await expect(footer.getByText("info@msmirsulaimantradecenter.com")).toBeVisible();
     await expect(footer.getByRole("link", { name: "Privacy Policy" })).toBeVisible();
   });
+
+  test("Mobile hamburger menu sub-list lists all 5 categories and equipment products", async ({ page, viewport }) => {
+    test.skip(!!viewport && viewport.width >= 1024, "Mobile drawer test for < 1024px");
+
+    await page.goto("/");
+    const menuBtn = page.getByRole("button", { name: /Open menu/i });
+    await menuBtn.click();
+
+    // Drawer is open
+    const panel = page.locator("#mobile-menu-panel");
+    await expect(panel).toBeVisible();
+
+    // Expand equipment row
+    const expandBtn = page.getByRole("button", { name: /Expand equipment list/i });
+    if (await expandBtn.isVisible()) {
+      await expandBtn.click();
+    }
+
+    // Verify all categories exist in sublist
+    await expect(page.getByText("Excavators").first()).toBeVisible();
+    await expect(page.getByText("Bulldozers").first()).toBeVisible();
+    await expect(page.getByText("Construction Machines").first()).toBeVisible();
+    await expect(page.getByText("Safety Equipment").first()).toBeVisible();
+    await expect(page.getByText("Imported Tools and Supplies").first()).toBeVisible();
+  });
 });
+

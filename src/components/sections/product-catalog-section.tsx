@@ -8,9 +8,12 @@ import { useQuoteDrawer } from "@/context/quote-drawer-context";
 import { Search } from "lucide-react";
 
 const CATEGORIES = [
-  { id: "all", label: "All Equipment" },
+  { id: "all", label: "All" },
   { id: "excavators", label: "Excavators" },
   { id: "bulldozers", label: "Bulldozers" },
+  { id: "construction-machines", label: "Construction Machines" },
+  { id: "safety-equipment", label: "Safety Equipment" },
+  { id: "imported-tools-and-supplies", label: "Imported Tools and Supplies" },
 ] as const;
 
 export function ProductCatalogSection() {
@@ -55,7 +58,11 @@ export function ProductCatalogSection() {
           {/* Horizontally scrolling category chips on mobile with fade */}
           <div className="relative w-full sm:w-auto">
             <div className="flex items-center space-x-2 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory py-1 pr-6">
-              {CATEGORIES.map((cat) => {
+              {CATEGORIES.filter(
+                (cat) =>
+                  cat.id === "all" ||
+                  allEquipment.some((item) => item.category === cat.id)
+              ).map((cat) => {
                 const isActive = activeCategory === cat.id;
                 return (
                   <button
@@ -157,8 +164,9 @@ export function ProductCatalogSection() {
                     <div className="pt-2 border-t border-[#E5E5E0] grid grid-cols-2 gap-2 text-xs">
                       {item.specs.slice(0, 2).map((spec, idx) => (
                         <div key={idx} className="truncate">
-                          <span className="text-[#6B6B6B] block truncate">{spec.label}</span>
-                          <span className="font-semibold text-[#111111] truncate">{spec.value}</span>
+                          <span className="font-semibold text-[#111111] truncate">
+                            {spec.value.replace(/^TO CONFIRM:\s*/i, "")}
+                          </span>
                         </div>
                       ))}
                     </div>

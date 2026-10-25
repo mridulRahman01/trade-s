@@ -5,7 +5,7 @@
       "startServerReadyPattern": "Ready in",
       "url": [
         "http://localhost:3000/",
-        "http://localhost:3000/equipment/cat-320-medium-excavator"
+        "http://localhost:3000/equipment/concrete-mixture-machine"
       ],
       "numberOfRuns": 1,
       "settings": {

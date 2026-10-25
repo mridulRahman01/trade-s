@@ -69,7 +69,7 @@ export function RatesJumpBar() {
                 }`}
                 aria-current={isActive ? "location" : undefined}
               >
-                <span className="opacity-70 mr-1">{item.number}</span>
+                <span className="opacity-85 mr-1 font-medium">{item.number}</span>{" "}
                 {item.label}
               </a>
             );

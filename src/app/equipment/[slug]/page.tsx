@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { allEquipment, getEquipmentBySlug, getRelatedEquipment } from "@/data/equipment";
+import { categories } from "@/data/categories";
 import { ProductGallery } from "@/components/equipment/product-gallery";
 import { ProductMobileActionBar } from "@/components/equipment/product-mobile-action-bar";
 import { ProductDetailActions } from "@/components/equipment/product-detail-actions";
@@ -89,7 +90,13 @@ export default async function EquipmentDetailPage({ params }: PageProps) {
             <div className="lg:col-span-5 space-y-6">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-[#6B6B6B] block mb-1">
-                  {item.brand} · {item.category}
+                  {item.brand &&
+                  item.brand !== "Direct Import" &&
+                  item.brand !== "Site Machinery" &&
+                  item.brand !== "Site Safety Gear"
+                    ? `${item.brand} · `
+                    : ""}
+                  {categories.find((c) => c.slug === item.category)?.name || item.category}
                 </span>
                 <h1 className="text-3xl sm:text-4xl font-bold font-heading text-[#111111] leading-tight">
                   {item.name}
@@ -101,23 +108,23 @@ export default async function EquipmentDetailPage({ params }: PageProps) {
                 {item.summary}
               </p>
 
-              {/* Rates Status */}
+              {/* Rates / Availability Status */}
               <div className="p-4 bg-[#F7F7F5] border border-[#E5E5E0] rounded-[6px]">
                 <span className="block text-xs uppercase font-semibold text-[#6B6B6B]">
-                  Rental Pricing
+                  Pricing & Availability
                 </span>
                 <span className="text-lg font-bold text-[#111111]">
-                  Request a quote for current rates
+                  Request a quote
                 </span>
                 <p className="text-xs text-[#6B6B6B] mt-1">
-                  Rates configured based on project duration, bare vs operated requirements, and site logistics.
+                  Contact us for immediate rates, options, and direct site dispatch from Tabunia Bazaar, Pabna.
                 </p>
               </div>
 
               {/* Key Specs Highlights (2-column grid on mobile) */}
               <div className="space-y-2">
                 <h2 className="text-sm font-bold uppercase tracking-wider text-[#111111]">
-                  Key Specifications
+                  {item.specsTitle ? "Typical Options" : "Key Specifications"}
                 </h2>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   {item.specs.slice(0, 4).map((spec, idx) => (
@@ -129,7 +136,7 @@ export default async function EquipmentDetailPage({ params }: PageProps) {
                         {spec.label}
                       </span>
                       <span className="font-bold text-[#111111] text-sm truncate block mt-0.5">
-                        {spec.value}
+                        {spec.value.replace(/^TO CONFIRM:\s*/i, "")}
                       </span>
                     </div>
                   ))}
@@ -144,13 +151,42 @@ export default async function EquipmentDetailPage({ params }: PageProps) {
                 phoneRaw={siteConfig.contact.phoneRaw}
                 whatsappUrl={whatsappUrl}
               />
+
+              {/* How to Order Box */}
+              <div className="p-4 bg-white border border-[#E5E5E0] rounded-[6px] space-y-1.5 text-xs text-[#3D3D3D]">
+                <span className="font-bold text-sm text-[#111111] block">
+                  How to order
+                </span>
+                <p className="leading-relaxed">
+                  Click <strong>Request a Quote</strong>, call our team at{" "}
+                  <a
+                    href={`tel:${siteConfig.contact.phoneRaw}`}
+                    className="font-semibold text-[#111111] hover:underline"
+                  >
+                    {siteConfig.contact.phone}
+                  </a>
+                  , or message us directly on{" "}
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-[#111111] hover:underline"
+                  >
+                    WhatsApp
+                  </a>
+                  .
+                </p>
+                <p className="text-[#6B6B6B] pt-1.5 border-t border-[#E5E5E0]">
+                  Proprietor: {siteConfig.proprietor} · Operating Hours: {siteConfig.operatingHours.display}
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Full Specs Table (stacked label/value rows on mobile) */}
           <div className="mt-12 pt-8 border-t border-[#E5E5E0]">
             <h2 className="text-2xl font-bold font-heading text-[#111111] mb-6">
-              Complete Technical Specifications
+              {item.specsTitle || "Complete Technical Specifications"}
             </h2>
             <div className="border border-[#E5E5E0] rounded-[6px] overflow-hidden">
               <div className="divide-y divide-[#E5E5E0]">
@@ -165,7 +201,7 @@ export default async function EquipmentDetailPage({ params }: PageProps) {
                       {spec.label}
                     </span>
                     <span className="text-sm font-bold text-[#111111] mt-1 sm:mt-0">
-                      {spec.value}
+                      {spec.value.replace(/^TO CONFIRM:\s*/i, "")}
                     </span>
                   </div>
                 ))}

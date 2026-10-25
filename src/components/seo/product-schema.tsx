@@ -25,10 +25,9 @@ export function ProductSchema({
       name: item.brand,
     },
     offers: {
-      "@type": "AggregateOffer",
-      priceCurrency: "USD",
-      price: "0",
-      description: "Request a quote for current rental rates",
+      "@type": "Offer",
+      priceCurrency: "BDT",
+      description: "Request a quote for current rates and availability",
       availability: item.available
         ? "https://schema.org/InStock"
         : "https://schema.org/PreOrder",

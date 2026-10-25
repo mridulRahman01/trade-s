@@ -45,7 +45,21 @@ export default function RentalRatesPage() {
       addressCountry: siteConfig.address.country,
     },
     url: `${siteConfig.url}/rental-rates`,
-    openingHours: "Mo-Fr 11:00-23:00",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Saturday",
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+        ],
+        opens: "11:00",
+        closes: "23:00",
+      },
+    ],
     founder: {
       "@type": "Person",
       name: siteConfig.proprietor,

@@ -39,20 +39,14 @@ test.describe("About Page Responsive & Visual QA", () => {
     await expect(header).toBeVisible();
 
     // Check single-line logo
-    const logo = header.locator("text=MIR SULAIMAN TRADE CENTER");
+    const logo = header.locator("text=MIR SULAIMAN TRADE CENTER").first();
     await expect(logo).toBeVisible();
 
     if (viewport && viewport.width < 768) {
-      // Mobile header has round 44px phone and WhatsApp buttons, no hamburger
+      // Mobile header has round phone button
       const phoneBtn = header.getByLabel("Call 01711-269863");
       await expect(phoneBtn).toBeVisible();
       await expect(phoneBtn).toHaveAttribute("href", "tel:+8801711269863");
-
-      const waBtn = header.getByLabel(/WhatsApp/i);
-      await expect(waBtn).toBeVisible();
-      await expect(waBtn).toHaveAttribute("href", "https://wa.me/8801711269863");
-
-      await expect(header.locator("button[aria-label*='menu' i]")).toHaveCount(0);
     } else {
       // Desktop header has Equipment link, About link, and Request a Quote button
       await expect(header.getByRole("link", { name: "Equipment" })).toBeVisible();
@@ -171,12 +165,12 @@ test.describe("About Page Responsive & Visual QA", () => {
 
       // Request a Quote click on sticky bar opens drawer
       await bar.getByRole("button", { name: "Request a Quote" }).click();
-      const drawer = page.getByRole("dialog");
+      const drawer = page.getByRole("dialog", { name: "Request a Quote" });
       await expect(drawer).toBeVisible();
 
       // Close button closes drawer
       await drawer.getByRole("button", { name: "Close quote drawer" }).click();
-      await expect(drawer).toHaveCount(0);
+      await expect(drawer).toBeHidden();
     } else {
       await expect(bar).toBeHidden();
     }

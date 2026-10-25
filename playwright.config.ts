@@ -14,33 +14,24 @@ export default defineConfig({
   },
   projects: [
     {
-      name: "Mobile Small (320px)",
+      name: "iPhone 13/14",
       use: {
+        ...devices["iPhone 13"],
         defaultBrowserType: "chromium",
-        viewport: { width: 320, height: 640 },
       },
     },
     {
-      name: "Mobile Standard (375px)",
+      name: "Pixel 7",
       use: {
-        ...devices["iPhone SE"],
+        ...devices["Pixel 7"],
         defaultBrowserType: "chromium",
-        viewport: { width: 375, height: 667 },
       },
     },
     {
-      name: "Tablet (768px)",
+      name: "iPad",
       use: {
         ...devices["iPad Mini"],
         defaultBrowserType: "chromium",
-        viewport: { width: 768, height: 1024 },
-      },
-    },
-    {
-      name: "Laptop (1024px)",
-      use: {
-        defaultBrowserType: "chromium",
-        viewport: { width: 1024, height: 768 },
       },
     },
     {
@@ -48,6 +39,13 @@ export default defineConfig({
       use: {
         defaultBrowserType: "chromium",
         viewport: { width: 1440, height: 900 },
+      },
+    },
+    {
+      name: "Mobile (360px)",
+      use: {
+        defaultBrowserType: "chromium",
+        viewport: { width: 360, height: 800 },
       },
     },
   ],

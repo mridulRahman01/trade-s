@@ -85,7 +85,7 @@ export function MobileNavDrawer() {
       if (footer) footer.setAttribute("aria-hidden", "true");
 
       const timer = setTimeout(() => {
-        closeButtonRef.current?.focus();
+        closeButtonRef.current?.focus({ preventScroll: true });
       }, 50);
 
       return () => {
@@ -94,8 +94,8 @@ export function MobileNavDrawer() {
         if (footer) footer.removeAttribute("aria-hidden");
       };
     } else {
-      // Returned focus to hamburger button
-      buttonRef.current?.focus();
+      // Returned focus to hamburger button without scrolling window to top
+      buttonRef.current?.focus({ preventScroll: true });
     }
   }, [isOpen]);
 

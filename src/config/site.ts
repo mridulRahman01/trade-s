@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "M/S Mir Sulaiman Trade Center",
   shortName: "Mir Sulaiman Trade Center",
-  proprietor: "Mir Sabbin Hossain",
+  proprietor: "Mir Sabbir Hossain",
   tagline: "Heavy Equipment Rental & Contractor Machinery",
   description:
     "Direct rental and delivery of heavy construction machinery including crawler excavators, wheeled excavators, and crawler rock bulldozers. Contact us for delivery to your site.",
@@ -24,10 +24,11 @@ export const siteConfig = {
     formatted: "Tabunia Bazaar, Pabna, Bangladesh",
   },
   operatingHours: {
-    display: "11:00 AM to 11:00 PM, Monday to Friday",
-    weekdays: "Monday – Friday: 11:00 AM – 11:00 PM",
-    weekend: "Saturday – Sunday: By Appointment",
-    note: "Hours taken from existing records; owner to confirm",
+    display: "Saturday to Thursday, 11:00 AM to 11:00 PM",
+    weekdays: "Saturday – Thursday: 11:00 AM – 11:00 PM",
+    weekend: "Friday: Closed",
+    friday: "Friday: Closed",
+    note: "Closed on Friday",
   },
   disclaimer:
     "Brand names are trademarks of their respective owners. M/S Mir Sulaiman Trade Center is not affiliated with the manufacturers.",

@@ -11,7 +11,7 @@ test.describe("Quote Drawer Submissions", () => {
     await cat350Card.getByRole("button", { name: "Request Quote" }).click();
 
     // Verify drawer opened
-    const drawer = page.getByRole("dialog");
+    const drawer = page.getByRole("dialog", { name: "Request a Quote" });
     await expect(drawer).toBeVisible();
     await expect(drawer.getByRole("heading", { name: "Request a Quote" })).toBeVisible();
 
@@ -23,10 +23,10 @@ test.describe("Quote Drawer Submissions", () => {
   test("Form displays validation errors for missing required fields", async ({ page }) => {
     await page.goto("/");
 
-    // Open drawer via first visible 'Request a Quote' button (header on desktop, hero on mobile)
-    await page.getByRole("button", { name: "Request a Quote" }).first().click();
+    // Open drawer via hero 'Request a Quote' button in main
+    await page.locator("main").getByRole("button", { name: "Request a Quote" }).first().click();
 
-    const drawer = page.getByRole("dialog");
+    const drawer = page.getByRole("dialog", { name: "Request a Quote" });
     await expect(drawer).toBeVisible();
 
     // Click submit without filling fields
@@ -50,9 +50,9 @@ test.describe("Quote Drawer Submissions", () => {
     });
 
     await page.goto("/");
-    await page.getByRole("button", { name: "Request a Quote" }).first().click();
+    await page.locator("main").getByRole("button", { name: "Request a Quote" }).first().click();
 
-    const drawer = page.getByRole("dialog");
+    const drawer = page.getByRole("dialog", { name: "Request a Quote" });
     await expect(drawer).toBeVisible();
 
     await drawer.locator("#quote-drawer-name").fill("Tariq Ahmed");
@@ -72,9 +72,9 @@ test.describe("Quote Drawer Submissions", () => {
 
   test("Escape key and close button close the drawer", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("button", { name: "Request a Quote" }).first().click();
+    await page.locator("main").getByRole("button", { name: "Request a Quote" }).first().click();
 
-    const drawer = page.getByRole("dialog");
+    const drawer = page.getByRole("dialog", { name: "Request a Quote" });
     await expect(drawer).toBeVisible();
 
     // Close via close button

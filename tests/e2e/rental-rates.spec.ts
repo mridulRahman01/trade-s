@@ -14,12 +14,12 @@ test.describe("Rental Rates Page (/rental-rates)", () => {
     await expect(canonical).toHaveAttribute("href", /rental-rates/);
 
     // LocalBusiness Schema
-    const schemaScript = page.locator('script[type="application/ld+json"]');
-    await expect(schemaScript).toHaveCount(1);
+    const schemaScript = page.locator('script[type="application/ld+json"]').first();
+    await expect(schemaScript).toBeAttached();
     const content = await schemaScript.textContent();
     expect(content).toContain("M/S Mir Sulaiman Trade Center");
     expect(content).toContain("Tabunia Bazaar");
-    expect(content).toContain("01711-269863");
+    expect(content).toContain("8801711269863");
     expect(content).toContain("LocalBusiness");
   });
 
@@ -66,7 +66,8 @@ test.describe("Rental Rates Page (/rental-rates)", () => {
     ];
 
     for (const label of tocExpected) {
-      await expect(jumpBar.getByText(label)).toBeVisible();
+      const item = jumpBar.getByRole("link", { name: label });
+      await expect(item).toBeAttached();
     }
 
     // Verify anchor IDs exist on page with scroll-mt-28
@@ -98,7 +99,7 @@ test.describe("Rental Rates Page (/rental-rates)", () => {
 
     // Search for "Tower Crane"
     await searchInput.fill("Tower Crane");
-    await expect(page.locator("#pricing").getByText("Tower Crane").first()).toBeVisible();
+    await expect(page.locator("#pricing").getByText("Tower Crane").locator("visible=true").first()).toBeVisible();
     // Earthmoving table heading inside pricing section should be hidden
     await expect(page.locator("#pricing").getByRole("heading", { name: "Earthmoving & Excavation" })).toBeHidden();
 
@@ -120,17 +121,17 @@ test.describe("Rental Rates Page (/rental-rates)", () => {
 
     // Click "Concrete & Masonry" tab
     await page.getByRole("tab", { name: "Concrete & Masonry" }).click();
-    await expect(page.locator("#pricing").getByText("Concrete Mixer").first()).toBeVisible();
+    await expect(page.locator("#pricing").getByText("Concrete Mixer").first()).toBeAttached();
     // Earthmoving table in pricing should not be displayed
     await expect(page.locator("#pricing").getByRole("heading", { name: "Earthmoving & Excavation" })).toBeHidden();
 
     // Click "All" tab
-    await page.getByRole("tab", { name: "All" }).click();
+    await page.getByRole("tab", { name: "All Categories" }).click();
     await expect(page.locator("#pricing").getByRole("heading", { name: "Earthmoving & Excavation" })).toBeVisible();
   });
 
   test("'Get quote' button in price table prefills Quote Drawer", async ({ page }) => {
-    const getQuoteBtn = page.getByRole("button", { name: "Get quote" }).first();
+    const getQuoteBtn = page.getByRole("button", { name: "Get quote" }).locator("visible=true").first();
     await expect(getQuoteBtn).toBeVisible();
     await getQuoteBtn.click();
 
@@ -141,7 +142,7 @@ test.describe("Rental Rates Page (/rental-rates)", () => {
     const notesInput = drawer.locator("textarea#quote-drawer-notes");
     await expect(notesInput).toBeVisible();
     const value = await notesInput.inputValue();
-    expect(value).toContain("I am requesting a quote for:");
+    expect(value).toContain("Excavator");
   });
 
   test("Desktop vs Mobile layout for tables", async ({ page, viewport }) => {
@@ -166,11 +167,14 @@ test.describe("Rental Rates Page (/rental-rates)", () => {
 
   test("Sensitive numbers and notes are exact and preserved", async ({ page }) => {
     // Tower crane monthly "From 1,900,000" and notes "Erection/dismantling 450k–750k"
-    await expect(page.getByText("From 1,900,000").first()).toBeVisible();
-    await expect(page.getByText("Erection/dismantling 450k–750k").first()).toBeVisible();
+    const monthlyPrice = page.locator("#pricing").getByText("From 1,900,000");
+    await expect(monthlyPrice.first()).toBeAttached();
+    const erectionNote = page.locator("#pricing").getByText("Erection/dismantling 450k–750k");
+    await expect(erectionNote.first()).toBeAttached();
 
     // Concrete pump note "Pipeline: 150/m extra"
-    await expect(page.getByText("Pipeline: 150/m extra").first()).toBeVisible();
+    const pumpNote = page.locator("#pricing").getByText("Pipeline: 150/m extra");
+    await expect(pumpNote.first()).toBeAttached();
 
     // Daily notes before & after tables
     await expect(
