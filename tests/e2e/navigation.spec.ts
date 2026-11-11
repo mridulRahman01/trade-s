@@ -87,7 +87,7 @@ test.describe("Site Navigation, Header & Footer", () => {
     await expect(footer.getByText("Proprietor: Mir Sabbir Hossain")).toBeVisible();
     await expect(footer.getByRole("link", { name: "Rental Rates" })).toBeVisible();
     await expect(footer.getByText("01711-269863")).toBeVisible();
-    await expect(footer.getByText("info@msmirsulaimantradecenter.com")).toBeVisible();
+    await expect(footer.getByText("mirsabbir293@gmail.com")).toBeVisible();
     await expect(footer.getByRole("link", { name: "Privacy Policy" })).toBeVisible();
   });
 

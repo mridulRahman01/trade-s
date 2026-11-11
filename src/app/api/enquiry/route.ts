@@ -52,10 +52,10 @@ export async function POST(request: NextRequest) {
     const isContactForm =
       body.type === "contact" || ("interest" in body && "message" in body);
 
-    const toEmail = process.env.ENQUIRY_TO_EMAIL || "info@msmirsulaimantradecenter.com";
+    const toEmail = process.env.ENQUIRY_TO_EMAIL || "mirsabbir293@gmail.com";
     const fromEmail =
       process.env.ENQUIRY_FROM_EMAIL ||
-      `${siteConfig.name} <notifications@msmirsulaimantradecenter.com>`;
+      `${siteConfig.name} <mirsabbir293@gmail.com>`;
 
     // Format current time in Asia/Dhaka
     const dhakaTime = new Intl.DateTimeFormat("en-US", {

@@ -12,7 +12,7 @@ Built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind
 - **Proprietor:** Mir Sabbir Hossain
 - **Address:** Tabunia Bazaar, Pabna, Bangladesh
 - **Mobile / WhatsApp:** [01711-269863](tel:+8801711269863) · [WhatsApp Chat](https://wa.me/8801711269863)
-- **Email:** [info@msmirsulaimantradecenter.com](mailto:info@msmirsulaimantradecenter.com)
+- **Email:** [mirsabbir293@gmail.com](mailto:mirsabbir293@gmail.com)
 - **Operating Hours:** Saturday to Thursday, 11:00 AM to 11:00 PM
 
 ---
@@ -114,8 +114,8 @@ Configure your environment variables in `.env.local`:
 ```ini
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 RESEND_API_KEY=re_your_api_key_here
-ENQUIRY_TO_EMAIL=info@msmirsulaimantradecenter.com
-ENQUIRY_FROM_EMAIL=info@msmirsulaimantradecenter.com
+ENQUIRY_TO_EMAIL=mirsabbir293@gmail.com
+ENQUIRY_FROM_EMAIL=mirsabbir293@gmail.com
 ```
 
 ### 3. Run Development Server

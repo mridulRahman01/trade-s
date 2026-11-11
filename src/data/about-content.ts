@@ -24,12 +24,35 @@ export interface BulletListSection {
   }>;
 }
 
+export interface OwnerProfile {
+  eyebrow: string;
+  name: string;
+  role: string;
+  imageSrc: string;
+  imageAlt: string;
+  bio: string;
+  highlights: string[];
+}
+
 export const aboutContent = {
   hero: {
     pageTitle: "About M/S Mir Sulaiman Trade Center",
     subtitle:
       "Construction machinery rental | Excavators, Backhoe Loaders, Bulldozers, Concrete Mixers, Vibrators.",
   },
+  owner: {
+    eyebrow: "Leadership & Ownership",
+    name: "Mir Sabbir Hossain",
+    role: "Proprietor & Owner",
+    imageSrc: "/images/brand/proprietor-mir-sabbir-hossain.webp",
+    imageAlt: "Mir Sabbir Hossain, Proprietor and Owner of M/S Mir Sulaiman Trade Center",
+    bio: "Mir Sabbir Hossain leads M/S Mir Sulaiman Trade Center from Tabunia Bazaar, Pabna, overseeing the entire construction machinery fleet, contractor supply operations, and direct equipment dispatch across Bangladesh.",
+    highlights: [
+      "Direct proprietor supervision of heavy earthmoving and construction equipment rentals",
+      "Reliable sourcing and import of contractor cutting discs, diamond blades, and hardware tools",
+      "Personalized project packages, operator coordination, and responsive site support",
+    ],
+  } as OwnerProfile,
   intro: {
     heading:
       "Build With Confidence: The Construction Machinery Rental Guide by M/S Mir Sulaiman Trade Center",

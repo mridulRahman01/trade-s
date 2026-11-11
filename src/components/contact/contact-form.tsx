@@ -491,7 +491,7 @@ export function ContactForm({ initialProduct }: ContactFormProps) {
             id="field-email"
             type="email"
             autoComplete="email"
-            placeholder="name@msmirsulaimantradecenter.com"
+            placeholder="you@example.com"
             aria-invalid={!!errors.email}
             aria-describedby={errors.email ? "error-email" : undefined}
             className={`w-full h-12 px-3.5 text-base rounded-[6px] border bg-white text-[#111111] transition-colors focus:outline-none focus:ring-2 focus:ring-[#111111] ${

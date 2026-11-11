@@ -5,7 +5,8 @@ export const siteConfig = {
   tagline: "Heavy Equipment Rental & Contractor Machinery",
   description:
     "Direct rental and delivery of heavy construction machinery including crawler excavators, wheeled excavators, and crawler rock bulldozers. Contact us for delivery to your site.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://msmirsulaimantradecenter.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.mirsulaimantradecenter.com",
+  websiteUrl: "https://www.mirsulaimantradecenter.com/",
   deliveryNote: "Contact us for delivery to your site",
   contact: {
     phone: "01711-269863",
@@ -13,7 +14,7 @@ export const siteConfig = {
     whatsapp: "01711-269863",
     whatsappRaw: "+8801711269863",
     whatsappUrl: "https://wa.me/8801711269863",
-    email: "info@msmirsulaimantradecenter.com",
+    email: "mirsabbir293@gmail.com",
   },
   address: {
     street: "Tabunia Bazaar",

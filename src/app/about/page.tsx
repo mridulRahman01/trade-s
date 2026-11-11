@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { aboutContent } from "@/data/about-content";
 import { AboutAccordion } from "@/components/about/about-accordion";
 import { AboutContactBlock } from "@/components/about/about-contact-block";
 import { AboutMobileActionBar } from "@/components/about/about-mobile-action-bar";
+import { WebsiteQrCard } from "@/components/layout/website-qr-card";
 import { JsonLd } from "@/components/seo/json-ld";
+import { Mail, MapPin, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About M/S Mir Sulaiman Trade Center",
@@ -36,6 +39,8 @@ export default function AboutPage() {
     founder: {
       "@type": "Person",
       name: siteConfig.proprietor,
+      jobTitle: aboutContent.owner.role,
+      image: `${siteConfig.url}${aboutContent.owner.imageSrc}`,
     },
     address: {
       "@type": "PostalAddress",
@@ -78,8 +83,116 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 2. Intro Section */}
+      {/* 2. Business Owner / Proprietor Section */}
       <section className="bg-[#F7F7F5] py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Portrait Column */}
+            <div className="md:col-span-5 lg:col-span-4">
+              <figure className="bg-white border border-[#E5E5E0] border-t-4 border-t-[#FFC20E] rounded-[6px] p-3 max-w-[320px] mx-auto md:mx-0">
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[4px] bg-[#F7F7F5]">
+                  <Image
+                    src={aboutContent.owner.imageSrc}
+                    alt={aboutContent.owner.imageAlt}
+                    width={640}
+                    height={807}
+                    priority
+                    sizes="(max-width: 768px) 280px, 320px"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <figcaption className="pt-3 pb-1 px-1">
+                  <span className="block font-heading font-bold text-lg text-[#111111] leading-tight">
+                    {aboutContent.owner.name}
+                  </span>
+                  <span className="block text-xs font-medium text-[#6B6B6B] mt-0.5">
+                    {aboutContent.owner.role} · {siteConfig.name}
+                  </span>
+                </figcaption>
+              </figure>
+            </div>
+
+            {/* Owner Bio & Direct Details */}
+            <div className="md:col-span-7 lg:col-span-8 space-y-5">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#6B6B6B] mb-1.5">
+                  {aboutContent.owner.eyebrow}
+                </p>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-[#111111] tracking-tight leading-[1.1]">
+                  {aboutContent.owner.name}
+                </h2>
+                <div className="w-12 h-1 bg-[#FFC20E] mt-3 mb-3" />
+                <p className="text-sm font-semibold text-[#111111]">
+                  {aboutContent.owner.role}, {siteConfig.name}
+                </p>
+              </div>
+
+              <p className="text-base text-[#3D3D3D] leading-relaxed max-w-[65ch]">
+                {aboutContent.owner.bio}
+              </p>
+
+              <ul className="space-y-2.5 max-w-[65ch]">
+                {aboutContent.owner.highlights.map((item) => (
+                  <li key={item} className="flex items-start text-sm sm:text-base text-[#3D3D3D]">
+                    <span
+                      className="w-1.5 h-1.5 rounded-full bg-[#FFC20E] mt-2.5 mr-3 shrink-0"
+                      aria-hidden="true"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <a
+                  href={`tel:${siteConfig.contact.phoneRaw}`}
+                  className="min-h-[52px] px-3.5 py-2.5 bg-white border border-[#E5E5E0] hover:border-[#111111] rounded-[6px] flex items-center gap-2.5 transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-[#111111] shrink-0" aria-hidden="true" />
+                  <div className="min-w-0">
+                    <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#6B6B6B]">
+                      Phone / WhatsApp
+                    </span>
+                    <span className="block text-sm font-semibold text-[#111111] truncate">
+                      {siteConfig.contact.phone}
+                    </span>
+                  </div>
+                </a>
+
+                <a
+                  href={`mailto:${siteConfig.contact.email}`}
+                  className="min-h-[52px] px-3.5 py-2.5 bg-white border border-[#E5E5E0] hover:border-[#111111] rounded-[6px] flex items-center gap-2.5 transition-colors"
+                >
+                  <Mail className="w-4 h-4 text-[#111111] shrink-0" aria-hidden="true" />
+                  <div className="min-w-0">
+                    <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#6B6B6B]">
+                      Email
+                    </span>
+                    <span className="block text-sm font-semibold text-[#111111] truncate">
+                      {siteConfig.contact.email}
+                    </span>
+                  </div>
+                </a>
+
+                <div className="min-h-[52px] px-3.5 py-2.5 bg-white border border-[#E5E5E0] rounded-[6px] flex items-center gap-2.5">
+                  <MapPin className="w-4 h-4 text-[#111111] shrink-0" aria-hidden="true" />
+                  <div className="min-w-0">
+                    <span className="block text-[11px] font-semibold uppercase tracking-wider text-[#6B6B6B]">
+                      Location
+                    </span>
+                    <span className="block text-sm font-semibold text-[#111111] truncate">
+                      {siteConfig.address.city}, {siteConfig.address.countryName}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Intro Section */}
+      <section className="bg-white py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-[#111111] tracking-tight leading-[1.1]">
             {aboutContent.intro.heading}
@@ -91,8 +204,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Overview: What We Offer */}
-      <section className="bg-white py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
+      {/* 4. Overview: What We Offer */}
+      <section className="bg-[#F7F7F5] py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-[#111111] tracking-tight leading-[1.1]">
             {aboutContent.overview.heading}
@@ -104,8 +217,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. Fleet at a Glance (Quick Table) */}
-      <section className="bg-[#F7F7F5] py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
+      {/* 5. Fleet at a Glance (Quick Table) */}
+      <section className="bg-white py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-[#111111] tracking-tight leading-[1.1]">
@@ -199,8 +312,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 5. Six Category Sections in Accordion */}
-      <section className="bg-white py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
+      {/* 6. Six Category Sections in Accordion */}
+      <section className="bg-[#F7F7F5] py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-[#111111] tracking-tight leading-[1.1]">
@@ -213,8 +326,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. Services & Quick Guide */}
-      <section className="bg-[#F7F7F5] py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
+      {/* 7. Services & Quick Guide */}
+      <section className="bg-white py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           {/* Services That Keep You Moving */}
           <div>
@@ -260,8 +373,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 7. Contact Block */}
-      <section className="bg-white py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
+      {/* 8. Contact Block & Website QR Code */}
+      <section className="bg-[#F7F7F5] py-12 md:py-[72px] lg:py-24 border-b border-[#E5E5E0]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-6">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-[#111111] tracking-tight leading-[1.1]">
@@ -270,7 +383,14 @@ export default function AboutPage() {
             <div className="w-12 h-1 bg-[#FFC20E] mt-3" />
           </div>
 
-          <AboutContactBlock />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-8">
+              <AboutContactBlock />
+            </div>
+            <div className="lg:col-span-4">
+              <WebsiteQrCard />
+            </div>
+          </div>
         </div>
       </section>
 

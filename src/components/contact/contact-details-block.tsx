@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { siteConfig } from "@/config/site";
 import { useDhakaBusinessStatus } from "@/lib/business-hours";
+import { WebsiteQrCard } from "@/components/layout/website-qr-card";
 import {
   Phone,
   MessageCircle,
@@ -300,6 +301,9 @@ export function ContactDetailsBlock() {
           </table>
         </div>
       </div>
+
+      {/* Website QR Code Card */}
+      <WebsiteQrCard />
     </div>
   );
 }

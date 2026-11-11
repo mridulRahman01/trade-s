@@ -25,7 +25,7 @@ test.describe("Contact Page (/contact)", () => {
     const mainContent = page.locator("#main-content");
     await expect(mainContent.locator('a[href^="tel:+8801711269863"]').first()).toBeVisible();
     await expect(mainContent.locator('a[href*="wa.me/8801711269863"]').first()).toBeVisible();
-    await expect(mainContent.locator('a[href^="mailto:info@msmirsulaimantradecenter.com"]').first()).toBeVisible();
+    await expect(mainContent.locator('a[href^="mailto:mirsabbir293@gmail.com"]').first()).toBeVisible();
 
     // Two-column section with form and details
     await expect(page.locator("#contact-form")).toBeVisible();
@@ -114,7 +114,7 @@ test.describe("Contact Page (/contact)", () => {
           fallback: {
             phone: "01711-269863",
             whatsappUrl: "https://wa.me/8801711269863",
-            email: "info@msmirsulaimantradecenter.com",
+            email: "mirsabbir293@gmail.com",
           },
         }),
       });
